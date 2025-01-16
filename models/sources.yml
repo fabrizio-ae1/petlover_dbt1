@@ -1,0 +1,13 @@
+version: 2
+
+sources:
+  - name: gdrive
+    database: LOAD
+    schema: GOOGLE_DRIVE
+    tables:
+      - name: requests
+      - name: cancellations
+      - name: walks
+      - name: walkers
+      - name: expenses
+      
