@@ -1,0 +1,15 @@
+SELECT
+    _FILE,
+    _LINE,
+    _MODIFIED AS _MODIFIED_TS,
+    _fivetran_synced AS _fivetran_synced_ts,
+    CAST(CLIENT_ID AS STRING) AS CLIENT_ID,
+    CAST(PET_ID AS STRING) AS PET_ID,
+    REQUEST_DAY_FROM AS START_WALK_TS,
+    REQUEST_DURATION AS WALK_MINUTES,
+    CAST(WALKER_ID AS STRING) AS WALKER_ID,
+    PRICE_PAID,
+    TAXES_PAID,
+    PAID_TO_WALKER,
+    REFUND
+FROM {{ source('gdrive', 'walks') }}

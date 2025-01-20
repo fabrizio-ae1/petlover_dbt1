@@ -1,0 +1,17 @@
+WITH ranked AS(
+    SELECT
+        _FILE,
+        _LINE,
+        _MODIFIED AS _MODIFIED_TS,
+        REQUEST_AT AS REQUEST_TS,
+        CAST(CLIENT_ID AS STRING) AS CLIENT_ID,
+        CAST(PET_ID AS STRING) AS PET_ID,
+        CANCEL_AT AS CANCEL_TS,
+        _FIVETRAN_SYNCED AS _FIVETRAN_SYNCED_TS,
+        ROW_NUMBER() OVER(PARTITION BY CLIENT_ID, REQUEST_AT ORDER BY CANCEL_AT) as row_n
+    FROM {{ source('gdrive', 'cancellations') }}
+)
+
+SELECT *
+FROM ranked
+WHERE row_n = 1
